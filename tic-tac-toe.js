@@ -15,7 +15,7 @@ const Gameboard = ( function(){
 
     const takeTurn = function(event){
         let arrayIndex = event.target.dataset.array;
-        if(gameBoard[arrayIndex] === ""){
+        if(gameBoard[arrayIndex] === "" && Game.getState() !== "GameOver"){
             gameBoard[arrayIndex] = Game.getState();
             drawBoard(); 
             checkWin();
@@ -26,58 +26,52 @@ const Gameboard = ( function(){
     const newGame = function(){
         gameBoard = ["", "", "", "", "","","","",""];
         drawBoard();
+        Game.clearText();
         Game.setState();
     }
 
     const checkWin = function(){
         for(let i=0; i <= 6; i=i+3){
             if(gameBoard[i] === gameBoard [i+1] && gameBoard[i+1] === gameBoard[i+2] && gameBoard[i]!== ""){
-                gameOver();
+                Game.gameOver();
                 return;
             }
         }
         for(let i=0; i <= 2; i++){
             if(gameBoard[i] === gameBoard [i+3] && gameBoard[i+3] === gameBoard[i+6] && gameBoard[i]!== ""){
-                gameOver();
+                Game.gameOver();
                 return;
             }
         }
         if(gameBoard[0] === gameBoard [4] && gameBoard[4] === gameBoard[8] && gameBoard[0]!== ""){
-                gameOver();
+                Game.gameOver();
                 return;
         }
         if(gameBoard[2] === gameBoard [4] && gameBoard[4] === gameBoard[6] && gameBoard[2]!== ""){
-                gameOver();
+                Game.gameOver();
                 return;
         }  
         if(gameBoard.indexOf("") === -1){ //check for tie game if there are no "" in the array 
-            tieGame();
+                Game.tieGame();
         }
     }
 
-    const gameOver = function(){
-        console.log("gameover" + Game.getState())
-    }
-
-    const tieGame= function(){
-        console.log("tiegame" + Game.getState())
-    }
-
+    //setup event listeners
     gameSquareDivs.forEach(event => event.addEventListener('click', takeTurn));
     newGameButton.addEventListener('click', newGame);
 
-    return {drawBoard};
+    return {drawBoard, newGame};
 
   })();
-
-Gameboard.drawBoard();
 
 const Game = ( function(){
 
     let playerTurnState = "X"; //x goes first
 
     const changeTurn = function(){
-        playerTurnState = (playerTurnState === "X") ? "O" : "X";
+        if(playerTurnState !== "GameOver"){
+            playerTurnState = (playerTurnState === "X") ? "O" : "X";
+        }
     }
 
     const getState = function(){
@@ -88,7 +82,23 @@ const Game = ( function(){
         playerTurnState = "X";
     }
 
-    return{setState, getState, changeTurn}
+    const gameOver = function(){
+        resultsNode.textContent = `Player ${playerTurnState} Wins!`;
+        playerTurnState = "GameOver";
+    }
+
+    const tieGame= function(){
+        resultsNode.textContent = "Its a Tie!";
+        plauerTurnState = "GameOver";
+    }
+
+    const clearText = function(){
+        resultsNode.textContent = "";
+    }
+
+    resultsNode = document.querySelector(".results");
+
+    return{setState, getState, changeTurn, gameOver, tieGame, clearText}
 
 })();
 // factory function for Person 
