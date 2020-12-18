@@ -1,3 +1,14 @@
+// factory function for Person 
+const Person = (name) => {
+    const changeName = (newName) => name=newName;
+    const getName = () => name;
+    return {changeName, getName};
+}
+
+//create default players
+const Player1 = Person("Player 1");
+const Player2 = Person("Player 2");
+
 //Module with instant function call
 const Gameboard = ( function(){
 
@@ -28,6 +39,9 @@ const Gameboard = ( function(){
         drawBoard();
         Game.clearText();
         Game.setState();
+        Player1.changeName("Player 1");
+        Player2.changeName("Player 2");
+        Game.updateNames();
     }
 
     const checkWin = function(){
@@ -62,11 +76,23 @@ const Gameboard = ( function(){
 
     return {drawBoard, newGame};
 
-  })();
+})();
+
+
+
 
 const Game = ( function(){
 
     let playerTurnState = "X"; //x goes first
+    const submitButtons = document.querySelectorAll(".SubmitButton");
+    const player1NameDiv = document.querySelector(".player1");
+    const player2NameDiv = document.querySelector(".player2");
+
+    
+
+    const getWinnerName = function(){
+        return (playerTurnState === "X") ? Player1.getName():Player2.getName();
+    }
 
     const changeTurn = function(){
         if(playerTurnState !== "GameOver"){
@@ -83,7 +109,7 @@ const Game = ( function(){
     }
 
     const gameOver = function(){
-        resultsNode.textContent = `Player ${playerTurnState} Wins!`;
+        resultsNode.textContent = `${getWinnerName()} Wins!`;
         playerTurnState = "GameOver";
     }
 
@@ -96,18 +122,36 @@ const Game = ( function(){
         resultsNode.textContent = "";
     }
 
+    const handleFormInput = function(e){
+        const myForm = e.target.form;
+        const whichPlayer = myForm[0].name;
+
+        if(whichPlayer === "player1" && myForm.player1.value !== ""){
+            Player1.changeName(myForm.player1.value);
+            myForm.player1.value = "";
+        } 
+        else if (whichPlayer === "player2" && myForm.player2.value !== "") {
+                Player2.changeName(myForm.player2.value);
+                myForm.player2.value = "";
+        }
+
+        updateNames();
+    }
+
+    const updateNames = function(){
+        player1NameDiv.textContent = Player1.getName();
+        player2NameDiv.textContent = Player2.getName();
+    }
+
+    submitButtons.forEach(event => event.addEventListener('click', handleFormInput));
     resultsNode = document.querySelector(".results");
 
-    return{setState, getState, changeTurn, gameOver, tieGame, clearText}
+    return{updateNames, setState, getState, changeTurn, gameOver, tieGame, clearText}
 
 })();
-// factory function for Person 
-const Person = (name) => {
-    const doSomething = () => console.log("testPerson");
-    return {name};
-}
 
-const Player1 = Person("jeff");
+
+
 
 
 

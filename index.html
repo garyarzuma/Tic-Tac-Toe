@@ -7,28 +7,46 @@
 
     <body>
         <h1>Tic-Tac-Toe</h1>
-        
+        <div class = "rules">
+            Player 1 plays X and goes first!
+        </div>
         <div class = "buttonContainer">
             <button class="newGameButton">New Game</button>
         </div>
-        
-        <div class="gameBoard">
-            <div class = "gameSquare" data-array="0"></div>
-            <div class = "gameSquare" data-array="1"></div>
-            <div class = "gameSquare" data-array="2"></div>
-            
-            <div class = "gameSquare" data-array="3"></div>
-            <div class = "gameSquare" data-array="4"></div>
-            <div class = "gameSquare" data-array="5"></div>
-            
-            <div class = "gameSquare" data-array="6"></div>
-            <div class = "gameSquare" data-array="7"></div>
-            <div class = "gameSquare" data-array="8"></div>  
-        </div>
-
-        <div class = "resultsContainer">
-            <div class ="results">
+        <div class= "gameContainer">
+            <div class="player-container">
+                <div class="player1">Player 1</div>
+                <form class="form-container" onSubmit="return false;">
+                    <input type="text" placeholder="Name" name="player1" size = "30" maxlength = "30">
+                    <button type="button" class="submitButton">OK</button>
+                </form>
+           </div>
+           
+            <div class="gameBoard">
+                <div class = "gameSquare" data-array="0"></div>
+                <div class = "gameSquare" data-array="1"></div>
+                <div class = "gameSquare" data-array="2"></div>
                 
+                <div class = "gameSquare" data-array="3"></div>
+                <div class = "gameSquare" data-array="4"></div>
+                <div class = "gameSquare" data-array="5"></div>
+                
+                <div class = "gameSquare" data-array="6"></div>
+                <div class = "gameSquare" data-array="7"></div>
+                <div class = "gameSquare" data-array="8"></div>  
+            </div>
+            <div class="player-container">
+                 <div class="player2">Player 2</div>
+                 <form class="form-container" onSubmit="return false;">
+                    <input type="text" placeholder="Name" name="player2" size = "30" maxlength = "30">
+                    <button type="button" class="submitButton">OK</button>
+                </form>
+            </div>
+        </div>
+        <div class = "resultsContainer">
+                      
+            <div class ="results">
+
             </div>
         </div>
         

@@ -1,29 +1,85 @@
+body{
+    font-family: 'Open Sans', sans-serif;
+}
+
 .gameBoard{
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    width: 200px;
+    width: 400px;
+    height: 400px;
     margin: 0 auto;
     margin-top: 30px;
+    margin-bottom: 30px;
 }
 
+.gameContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.player1, .player2{
+    display:flex;
+    justify-content: center;
+    font-size: 40px;
+    margin-bottom: 40px;
+
+}
+input{
+    font-size: 30px;
+    border-radius: 20px;
+    padding-left:10px;
+}
+
+.submitButton{
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 40px;
+    width: 80px;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+.newGameButton{
+    width: 100px;
+    margin: 0 auto;
+    margin-top: 10px;
+    height: 40px;
+    width: 200px;
+    font-size: 30px;
+    border-radius: 20px;
+}
+
+.form-container{
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    width: 160px;
+    margin: 0 auto;
+}
 .gameSquare{
     text-align: center;
-    height: 30px;
+    font-size: 80px;
     border: solid 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h1{
     text-align: center;
+    font-size: 50px;
 }
 
 .buttonContainer{
         display: flex;
         justify-content: center;
+        margin-top: 30px;
 }
 
-.results{
+.results, .rules{
     text-align:center;
-    margin-top: 30px;
+    font-size: 20px;
 }
 
